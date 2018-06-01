@@ -71,10 +71,10 @@ defmodule Mustache do
   end
 
   defp resolve(data, path) do
-    key = String.to_atom(hd(path))
+    key = hd(path)
     case tl(path) do
-      [] -> data[key]
-      _  -> resolve(data[key], tl(path))
+      [] -> indifferent_access(data, key)
+      _  -> resolve(indifferent_access(data, key), tl(path))
     end
   end
 
